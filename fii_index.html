@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus FIIs - Informações e Simulações</title>
+    <style>
+        /* Estilos CSS para a sua página */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #F8F8F8; /* Um branco bem suave */
+            color: #333333; /* Texto quase preto */
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #FFFFFF; /* Fundo branco para o conteúdo principal */
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Sombra mais suave */
+            max-width: 700px; /* Largura máxima para melhor leitura */
+            width: 100%;
+            box-sizing: border-box; /* Garante que padding e border estejam inclusos na largura */
+        }
+
+        h1, h2 {
+            color: #0056b3; /* Um tom de azul para os títulos */
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        .input-group, .info-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Espaço entre label/input e info/valor */
+        }
+
+        label {
+            font-weight: bold;
+            color: #555555;
+            min-width: 150px; /* Alinha os labels */
+        }
+
+        select, input[type="number"] {
+            flex-grow: 1; /* Faz o input/select preencher o espaço restante */
+            padding: 10px 15px;
+            border: 1px solid #CCCCCC;
+            border-radius: 6px;
+            font-size: 1em;
+            outline: none; /* Remove a borda de foco padrão */
+            transition: border-color 0.3s ease;
+        }
+
+        select:focus, input[type="number"]:focus {
+            border-color: #007BFF; /* Borda azul ao focar */
+        }
+
+        button {
+            background-color: #007BFF; /* Azul vibrante para o botão */
+            color: #FFFFFF;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1.05em;
+            font-weight: bold;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            width: 100%; /* Botão ocupa toda a largura */
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Azul mais escuro ao passar o mouse */
+            transform: translateY(-1px); /* Pequeno efeito ao passar o mouse */
+        }
+
+        .info-value {
+            font-weight: normal; /* Para o valor exibido, se precisar */
+            color: #000000;
+            flex-grow: 1; /* Ocupa o espaço restante */
+            text-align: right; /* Alinha os valores à direita */
+            font-size: 1.1em;
+        }
+        
+        #ultimaAtualizacao {
+            font-size: 0.9em;
+            color: #777;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dashboard dos Meus FIIs</h1>
+        
+        <div class="input-group">
+            <label for="fiiSelect">Selecione o FII:</label>
+            <select id="fiiSelect" onchange="exibirDadosFII()">
+                </select>
+        </div>
+
+        <h2>Informações Detalhadas</h2>
+        <div class="info-item">
+            <label>Ativo:</label>
+            <span id="ativo" class="info-value"></span>
+        </div>
+        <div class="info-item">
+            <label>Nome Completo:</label>
+            <span id="nomeFII" class="info-value"></span>
+        </div>
+        <div class="info-item">
+            <label>Descrição:</label>
+            <span id="descricaoFII" class="info-value"></span>
+        </div>
+        <div class="info-item">
+            <label>Valor da Cota:</label>
+            <span id="valorCota" class="info-value"></span>
+        </div>
+        <div class="info-item">
+            <label>Valor Patrimonial p/ Cota:</label>
+            <span id="valorPatrimonialPorCota" class="info-value"></span>
+        </div>
+        <div class="info-item">
+            <label>CNPJ:</label>
+            <span id="cnpj" class="info-value"></span>
+        </div>
+        <div class="info-item">
+            <label>Liquidez Média Diária:</label>
+            <span id="liquidezMediaDiaria" class="info-value"></span>
+        </div>
+        <div class="info-item">
+            <label>Dividend Yield (DY):</label>
+            <span id="dy" class="info-value"></span>
+        </div>
+        <div class="info-item">
+            <label>P/VP:</label>
+            <span id="pvp" class="info-value"></span>
+        </div>
+        <div class="info-item">
+            <label>Último Rendimento:</label>
+            <span id="ultimoRendimento" class="info-value"></span>
+        </div>
+        <div class="info-item">
+            <label>Patrimônio Líquido:</label>
+            <span id="patrimonioLiquido" class="info-value"></span>
+        </div>
+        <div class="info-item">
+            <label>Cotistas:</label>
+            <span id="cotistas" class="info-value"></span>
+        </div>
+
+        <p id="ultimaAtualizacao"></p>
+
+        ---
+
+        <h2>Simulação de Rendimentos</h2>
+        <div class="input-group">
+            <label for="cotas">Quantidade de Cotas:</label>
+            <input type="number" id="cotas" value="1000" min="1">
+        </div>
+        <button onclick="calcularRendimento()">Calcular Rendimento Mensal</button>
+        <div class="info-item" style="margin-top: 20px;">
+            <label>Rendimento Mensal Estimado:</label>
+            <span id="rendimentoEstimado" class="info-value">R$ 0,00</span>
+        </div>
+    </div>
+
+    <script>
+        let fiisData = {}; // Variável global para armazenar os dados do JSON
+
+        // Função para carregar os dados do JSON e inicializar a página
+        async function carregarDadosEExibir() {
+            try {
+                // Requisição para o arquivo JSON no mesmo diretório
+                const response = await fetch('./fiis_data.json'); 
+                fiisData = await response.json(); // Armazena os dados no objeto global
+
+                preencherSelectFIIs(); // Preenche o dropdown com os FIIs
+                exibirDadosFII();      // Exibe os dados do primeiro FII por padrão
+            } catch (error) {
+                console.error('Erro ao carregar os dados do FII:', error);
+                alert('Não foi possível carregar os dados dos FIIs. Verifique o arquivo fiis_data.json.');
+            }
+        }
+
+        // Função para preencher o dropdown de seleção de FIIs
+        function preencherSelectFIIs() {
+            const selectElement = document.getElementById('fiiSelect');
+            selectElement.innerHTML = ''; // Limpa opções existentes
+
+            for (const ticker in fiisData) {
+                const option = document.createElement('option');
+                option.value = ticker;
+                option.textContent = ticker;
+                selectElement.appendChild(option);
+            }
+        }
+
+        // Função para exibir os dados do FII selecionado
+        function exibirDadosFII() {
+            const selectedTicker = document.getElementById('fiiSelect').value;
+            const fii = fiisData[selectedTicker];
+
+            if (!fii) {
+                // Limpa os campos se nenhum FII estiver selecionado ou encontrado
+                document.getElementById('ativo').textContent = '';
+                document.getElementById('nomeFII').textContent = '';
+                document.getElementById('descricaoFII').textContent = '';
+                document.getElementById('valorCota').textContent = '';
+                document.getElementById('valorPatrimonialPorCota').textContent = '';
+                document.getElementById('cnpj').textContent = '';
+                document.getElementById('liquidezMediaDiaria').textContent = '';
+                document.getElementById('dy').textContent = '';
+                document.getElementById('pvp').textContent = '';
+                document.getElementById('ultimoRendimento').textContent = '';
+                document.getElementById('patrimonioLiquido').textContent = '';
+                document.getElementById('cotistas').textContent = '';
+                document.getElementById('ultimaAtualizacao').textContent = '';
+                document.getElementById('rendimentoEstimado').textContent = 'R$ 0,00';
+                return;
+            }
+
+            // Função auxiliar para formatar grandes números (milhões/bilhões)
+            function formatarGrandeNumero(num) {
+                if (num === null || num === undefined) return 'N/A';
+                if (num >= 1000000000) {
+                    return (num / 1000000000).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + 'B';
+                } else if (num >= 1000000) {
+                    return (num / 1000000).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + 'M';
+                } else if (num >= 1000) {
+                    return num.toLocaleString('pt-BR');
+                }
+                return num.toLocaleString('pt-BR');
+            }
+
+            // Preenche os elementos HTML com os dados do FII selecionado, formatando-os
+            document.getElementById('ativo').textContent = fii.ativo || 'N/A';
+            document.getElementById('nomeFII').textContent = fii.nome || 'N/A';
+            document.getElementById('descricaoFII').textContent = fii.descricao || 'N/A';
+            document.getElementById('valorCota').textContent = (fii.valor_cota || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            document.getElementById('valorPatrimonialPorCota').textContent = (fii.valor_patrimonial_por_cota || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            document.getElementById('cnpj').textContent = fii.cnpj || 'N/A';
+            document.getElementById('liquidezMediaDiaria').textContent = formatarGrandeNumero(fii.liquidez_media_diaria);
+            document.getElementById('dy').textContent = (fii.dy || 0).toFixed(2).replace('.', ',') + '%';
+            document.getElementById('pvp').textContent = (fii.pvp || 0).toFixed(2).replace('.', ',');
+            document.getElementById('ultimoRendimento').textContent = (fii.ultimo_rendimento || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            document.getElementById('patrimonioLiquido').textContent = formatarGrandeNumero(fii.patrimonio_liquido);
+            document.getElementById('cotistas').textContent = (fii.cotistas || 0).toLocaleString('pt-BR');
+            document.getElementById('ultimaAtualizacao').textContent = `Dados atualizados em: ${fii.ultima_atualizacao || 'N/A'}`;
+
+            calcularRendimento(); // Recalcula a simulação sempre que um novo FII é selecionado
+        }
+
+        // Função para calcular o rendimento estimado com base nas cotas inseridas
+        function calcularRendimento() {
+            const cotasInput = document.getElementById('cotas');
+            let cotas = parseFloat(cotasInput.value);
+            
+            // Garante que o número de cotas seja no mínimo 1
+            if (isNaN(cotas) || cotas < 1) {
+                cotas = 1;
+                cotasInput.value = 1; // Ajusta o valor no input
+            }
+
+            const selectedTicker = document.getElementById('fiiSelect').value;
+            const fii = fiisData[selectedTicker];
+
+            if (!fii || isNaN(fii.valor_cota) || isNaN(fii.dy)) {
+                document.getElementById('rendimentoEstimado').textContent = 'R$ 0,00';
+                return;
+            }
+
+            // Calcula o rendimento mensal: (Valor Cota * DY Anual / 100) / 12 meses * Quantidade de Cotas
+            const rendimentoMensalEstimado = (fii.valor_cota * (fii.dy / 100) * cotas) / 12;
+
+            document.getElementById('rendimentoEstimado').textContent = rendimentoMensalEstimado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        // Carrega os dados e inicializa a página quando o DOM estiver pronto
+        document.addEventListener('DOMContentLoaded', carregarDadosEExibir);
+    </script>
+</body>
+</html>
