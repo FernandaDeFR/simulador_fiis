@@ -11,7 +11,7 @@
     "pvp": 0.76,
     "ultimo_rendimento": 0.68,
     "patrimonio_liquido": 1700000000,
-    "cotistas": "146.483",
+    "cotistas": 146483,
     "ultima_atualizacao": "2025-06-15 10:30:00"
   },
   "HGBS11": {
@@ -21,12 +21,12 @@
     "valor_cota": 19.86,
     "valor_patrimonial_por_cota": 215.17,
     "cnpj": "08.431.747/0001-06",
-    "liquidez_media_diaria": "2.3 M",
+    "liquidez_media_diaria": 2300000,
     "dy": 9.76,
     "pvp": 0.09,
     "ultimo_rendimento": 0.16,
-    "patrimonio_liquido": "2.8 B",
-    "cotistas": "126.421",
+    "patrimonio_liquido": 2800000000,
+    "cotistas": 126421,
     "ultima_atualizacao": "2025-06-15 10:30:00"
   },
   "HGRE11": {
@@ -36,12 +36,12 @@
     "valor_cota": 113.20,
     "valor_patrimonial_por_cota": 154.27,
     "cnpj": "09.072.017/0001-29",
-    "liquidez_media_diaria": 1.5,
+    "liquidez_media_diaria": 1500000,
     "dy": 9.12,
     "pvp": 0.74,
     "ultimo_rendimento": 0.85,
-    "patrimonio_liquido": 1.8,
-    "cotistas": "142.072",
+    "patrimonio_liquido": 1800000000,
+    "cotistas": 142072,
     "ultima_atualizacao": "2025-06-15 10:30:00"
   },
   "HGRU11": {
@@ -51,12 +51,12 @@
     "valor_cota": 123.69,
     "valor_patrimonial_por_cota": 125.56,
     "cnpj": "29.641.226/0001-53",
-    "liquidez_media_diaria": "3.4 M",
+    "liquidez_media_diaria": 3400000,
     "dy": 9.67,
     "pvp": 0.98,
     "ultimo_rendimento": 0.90,
-    "patrimonio_liquido": "2.9 B",
-    "cotistas": "219.106",
+    "patrimonio_liquido": 2900000000,
+    "cotistas": 219106,
     "ultima_atualizacao": "2025-06-15 10:30:00"
   }
 }
