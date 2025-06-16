@@ -6,11 +6,11 @@
     "valor_cota": 86.35,
     "valor_patrimonial_por_cota": 112.53,
     "cnpj": "24.853.044/0001-22",
-    "liquidez_media_diaria": "1.5 M",
+    "liquidez_media_diaria": 1500000,
     "dy": 8.98,
     "pvp": 0.76,
     "ultimo_rendimento": 0.68,
-    "patrimonio_liquido": "1.7 B",
+    "patrimonio_liquido": 1700000000,
     "cotistas": "146.483",
     "ultima_atualizacao": "2025-06-15 10:30:00"
   },
