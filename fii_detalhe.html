@@ -49,7 +49,7 @@
             min-width: 150px; /* Alinha os labels */
         }
 
-        select, input[type="number"] {
+        input[type="number"] {
             flex-grow: 1; /* Faz o input/select preencher o espaço restante */
             padding: 10px 15px;
             border: 1px solid #CCCCCC;
@@ -59,7 +59,7 @@
             transition: border-color 0.3s ease;
         }
 
-        select:focus, input[type="number"]:focus {
+        input[type="number"]:focus {
             border-color: #007BFF; /* Borda azul ao focar */
         }
 
@@ -101,12 +101,6 @@
 <body>
     <div class="container">
         <h1>Dashboard dos Meus FIIs</h1>
-        
-        <div class="input-group">
-            <label for="fiiSelect">Selecione o FII:</label>
-            <select id="fiiSelect" onchange="exibirDadosFII()">
-                </select>
-        </div>
 
         <h2>Informações Detalhadas</h2>
         <div class="info-item">
@@ -175,39 +169,44 @@
     </div>
 
     <script>
+// Função para obter o parâmetro 'ticker' da URL
+function getParameterByName(name, url = window.location.href) {
+    name = name.replace(/[\[\]]/g, '\\$&');
+    const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+    const results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+        
         let fiisData = {}; // Variável global para armazenar os dados do JSON
+        let currentFiiTicker = null;
 
-        // Função para carregar os dados do JSON e inicializar a página
-        async function carregarDadosEExibir() {
-            try {
-                // Requisição para o arquivo JSON no mesmo diretório
-                const response = await fetch('./fiis_data.json'); 
-                fiisData = await response.json(); // Armazena os dados no objeto global
+     // Modifique carregarDadosEExibir para pegar o ticker da URL
+async function carregarDadosEExibir() {
+    const tickerFromUrl = getParameterByName('ticker'); // Pega o ticker da URL
+    if (!tickerFromUrl) {
+        // Tratar caso não tenha ticker na URL, talvez exibir uma mensagem ou redirecionar
+        alert('Nenhum FII especificado na URL.');
+        // Opcional: Redirecionar de volta para a home
+        // window.location.href = 'index.html'; 
+        return;
+    }
 
-                preencherSelectFIIs(); // Preenche o dropdown com os FIIs
-                exibirDadosFII();      // Exibe os dados do primeiro FII por padrão
-            } catch (error) {
-                console.error('Erro ao carregar os dados do FII:', error);
-                alert('Não foi possível carregar os dados dos FIIs. Verifique o arquivo fiis_data.json.');
-            }
-        }
+    try {
+        const response = await fetch('./fiis_data.json');
+        fiisData = await response.json();
 
-        // Função para preencher o dropdown de seleção de FIIs
-        function preencherSelectFIIs() {
-            const selectElement = document.getElementById('fiiSelect');
-            selectElement.innerHTML = ''; // Limpa opções existentes
-
-            for (const ticker in fiisData) {
-                const option = document.createElement('option');
-                option.value = ticker;
-                option.textContent = ticker;
-                selectElement.appendChild(option);
-            }
-        }
+        exibirDadosFII(tickerFromUrl); // Chama a função de exibição com o ticker específico
+    } catch (error) {
+        console.error('Erro ao carregar os dados do FII na página de detalhes:', error);
+        alert('Não foi possível carregar os dados para este FII.');
+    }
+}
 
         // Função para exibir os dados do FII selecionado
-        function exibirDadosFII() {
-            const selectedTicker = document.getElementById('fiiSelect').value;
+        function exibirDadosFII(ticker) {
+            const selectedTicker = ticker;
             const fii = fiisData[selectedTicker];
 
             if (!fii) {
@@ -228,7 +227,7 @@
                 document.getElementById('rendimentoEstimado').textContent = 'R$ 0,00';
                 return;
             }
-
+            currentFiiTicker = ticker;
             // Função auxiliar para formatar grandes números (milhões/bilhões)
             function formatarGrandeNumero(num) {
                 if (num === null || num === undefined) return 'N/A';
@@ -271,7 +270,7 @@
                 cotasInput.value = 1; // Ajusta o valor no input
             }
 
-            const selectedTicker = document.getElementById('fiiSelect').value;
+            const selectedTicker = currentFiiTicker; 
             const fii = fiisData[selectedTicker];
 
             if (!fii || isNaN(fii.valor_cota) || isNaN(fii.dy)) {
