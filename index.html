@@ -230,15 +230,15 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Fii (a)</th>
-                            <th>Fii (b)</th>
+                            <th><input type="text" placeholder="Ex: VILG11" onblur="fetchComparatorData('fiiA', this.value)"></th>
+                            <th><input type="text" placeholder="Ex: HGRE11" onblur="fetchComparatorData('fiiB', this.value)"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Cotação</td>
-                            <td><input type="text" id="fiiA_cotacao" placeholder="Ex: VILG11" onblur="fetchComparatorData('fiiA', this.value)"></td>
-                            <td><input type="text" id="fiiB_cotacao" placeholder="Ex: XPML11" onblur="fetchComparatorData('fiiB', this.value)"></td>
+                            <td><input id="fiiA_cotacao"></td>
+                            <td><input id="fiiB_cotacao"></td>
                         </tr>
                         <tr>
                             <td>P/VP</td>
