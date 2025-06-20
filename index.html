@@ -362,7 +362,7 @@
 
             if (fii) {
                 // Preenche os campos do comparador
-                document.getElementById(`${fiiIdPrefix}_cotacao`).value = (fii.valor_cota || 0).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                document.getElementById(`${fiiIdPrefix}_cotacao`).textContent = (fii.valor_cota || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                 document.getElementById(`${fiiIdPrefix}_pvp`).textContent = (fii.pvp || 0).toFixed(2).replace('.', ',');
                 document.getElementById(`${fiiIdPrefix}_dy`).textContent = (fii.dy || 0).toFixed(2).replace('.', ',') + '%';
                 document.getElementById(`${fiiIdPrefix}_patrimonioLiquido`).textContent = formatarGrandeNumero(fii.patrimonio_liquido);
