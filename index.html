@@ -371,7 +371,7 @@
                 document.getElementById(`${fiiIdPrefix}_ultimoRendimento`).textContent = (fii.ultimo_rendimento || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             } else {
                 // Limpa os campos se o FII não for encontrado
-                document.getElementById(`${fiiIdPrefix}_cotacao`).value = ticker; // Mantém o texto digitado
+                document.getElementById(`${fiiIdPrefix}_cotacao`).textContent = 'N/A'; 
                 document.getElementById(`${fiiIdPrefix}_pvp`).textContent = 'N/A';
                 document.getElementById(`${fiiIdPrefix}_dy`).textContent = 'N/A';
                 document.getElementById(`${fiiIdPrefix}_patrimonioLiquido`).textContent = 'N/A';
