@@ -99,8 +99,8 @@
         }
 
         .benefit-item img { /* Estilo para a imagem da estrela */
-            width: 30px;
-            height: 30px;
+            width: 60px;
+            height: 60px;
             margin-top: 2px; /* Pequeno ajuste para alinhar com o texto */
         }
 
@@ -110,6 +110,7 @@
             color: #444;
         }
 
+        .simulador-section,
         .comparator-section {
             background-color: #fdfdfd;
             border: 1px solid #eee;
@@ -118,13 +119,75 @@
             margin-top: 40px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
         }
-
+        
+        .simulador-section h2,
         .comparator-section h2 {
             text-align: center;
             color: #0056b3;
             margin-bottom: 25px;
         }
 
+        .simulador-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .simulador-form label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .simulador-form input[type="text"],
+        .simulador-form input[type="number"] {
+            padding: 10px 12px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1em;
+            width: calc(100% - 24px);
+            box-sizing: border-box;
+        }
+
+        .simulador-form button {
+            background-color: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+
+        .simulador-form button:hover {
+            background-color: #218838;
+        }
+
+        .simulador-results {
+            margin-top: 25px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+            text-align: center;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .simulator-results p {
+            margin-bottom: 10px;
+        }
+
+        .simulator-results strong {
+            color: #007BFF; /* Cor de destaque para os resultados */
+            font-size: 1.2em;
+        }
+
+        .simulator-results .error {
+            color: #dc3545; /* Cor para mensagens de erro */
+            font-weight: bold;
+        }
+        
         .comparator-table {
             width: 100%;
             border-collapse: collapse;
@@ -204,6 +267,12 @@
         }
 
         @media (max-width: 768px) {
+            .simulator-form {
+                max-width: 100%;
+            }
+            .search-bar input {
+                max-width: none;
+            }
             body {
                 padding: 10px; /* Reduz o padding do body em telas muito pequenas */
             }
@@ -247,8 +316,30 @@
                     <img src="money.jpg" alt="Money">
                     <p>Investimentos a partir de R$ 10,00</p>
                 </div>
+                
             </div>
+            <div class="simulator-section">
+                <h2>Simulador de Renda Mensal com FIIs</h2>
+                <div class="simulator-form">
+                    <label for="simuladorFiiTicker">Qual FII você deseja simular?</label>
+                    <input type="text" id="simuladorFiiTicker" placeholder="Ex: HGLG11" onblur="updateSimulatorFiiData()">
 
+                    <label for="simuladorRendaDesejada">Qual renda mensal você deseja receber?</label>
+                    <input type="number" id="simuladorRendaDesejada" placeholder="Ex: 500.00" min="0.01" step="0.01">
+
+                    <button onclick="calculateSimulator()">Simular Investimento</button>
+
+                    <div class="simulator-results">
+                        <p>FII selecionado: <strong id="simuladorFiiInfo">N/A</strong></p>
+                        <p>Rendimento por Cota (Último Mês): <strong id="simuladorRendimentoCota">N/A</strong></p>
+                        <p>Cotação Atual: <strong id="simuladorCotacaoAtual">N/A</strong></p>
+                        <hr style="border: none; border-top: 1px dashed #eee; margin: 15px 0;">
+                        <p>Você precisaria investir aproximadamente: <strong id="simuladorInvestimentoNecessario">N/A</strong></p>
+                        <p>Isso equivale a aproximadamente: <strong id="simuladorCotasNecessarias">N/A</strong></p>
+                        <p class="error" id="simuladorErro"></p>
+                    </div>
+                </div>
+            </div>
             <div class="comparator-section">
                 <h2>Comparador de FIIs</h2>
                 <table class="comparator-table">
@@ -320,7 +411,86 @@
                 console.error('Erro ao carregar os dados dos FIIs para o comparador:', error);
             }
         }
+        
+        // --- Funções para o Simulador ---
+        let currentSimulatedFii = null; // Armazena o FII selecionado no simulador
 
+        function updateSimulatorFiiData() {
+            const tickerInput = document.getElementById('simuladorFiiTicker');
+            const ticker = tickerInput.value.trim().toUpperCase();
+            const fiiInfoElem = document.getElementById('simuladorFiiInfo');
+            const rendimentoElem = document.getElementById('simuladorRendimentoCota');
+            const cotacaoElem = document.getElementById('simuladorCotacaoAtual');
+            const erroElem = document.getElementById('simuladorErro');
+
+            erroElem.textContent = ''; // Limpa mensagens de erro anteriores
+
+            if (!ticker) {
+                fiiInfoElem.textContent = 'N/A';
+                rendimentoElem.textContent = 'N/A';
+                cotacaoElem.textContent = 'N/A';
+                currentSimulatedFii = null;
+                return;
+            }
+
+            const fii = fiisDataHome[ticker];
+
+            if (fii) {
+                fiiInfoElem.textContent = `${fii.ticker} (${fii.nome})`;
+                rendimentoElem.textContent = (fii.ultimo_rendimento || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                cotacaoElem.textContent = (fii.valor_cota || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                currentSimulatedFii = fii; // Armazena o FII para uso no cálculo
+            } else {
+                fiiInfoElem.textContent = 'FII não encontrado';
+                rendimentoElem.textContent = 'N/A';
+                cotacaoElem.textContent = 'N/A';
+                erroElem.textContent = 'FII não encontrado na base de dados.';
+                currentSimulatedFii = null;
+            }
+        }
+
+        function calculateSimulator() {
+            const rendaDesejadaStr = document.getElementById('simuladorRendaDesejada').value;
+            const investimentoNecessarioElem = document.getElementById('simuladorInvestimentoNecessario');
+            const cotasNecessariasElem = document.getElementById('simuladorCotasNecessarias');
+            const erroElem = document.getElementById('simuladorErro');
+
+            investimentoNecessarioElem.textContent = 'N/A';
+            cotasNecessariasElem.textContent = 'N/A';
+            erroElem.textContent = '';
+
+            const rendaDesejada = parseFloat(rendaDesejadaStr.replace(',', '.')); // Garante que é um número com ponto decimal
+
+            if (isNaN(rendaDesejada) || rendaDesejada <= 0) {
+                erroElem.textContent = 'Por favor, digite uma renda mensal desejada válida e maior que zero.';
+                return;
+            }
+
+            if (!currentSimulatedFii) {
+                erroElem.textContent = 'Por favor, selecione um FII válido primeiro.';
+                return;
+            }
+
+            const ultimoRendimento = currentSimulatedFii.ultimo_rendimento;
+            const valorCota = currentSimulatedFii.valor_cota;
+
+            if (!ultimoRendimento || ultimoRendimento <= 0) {
+                erroElem.textContent = `O FII ${currentSimulatedFii.ticker} não possui rendimento por cota ou o rendimento é zero. Não é possível simular.`;
+                return;
+            }
+
+            if (!valorCota || valorCota <= 0) {
+                 erroElem.textContent = `O FII ${currentSimulatedFii.ticker} não possui cotação válida. Não é possível simular.`;
+                 return;
+            }
+
+            const cotasNecessarias = rendaDesejada / ultimoRendimento;
+            const investimentoNecessario = cotasNecessarias * valorCota;
+
+            investimentoNecessarioElem.textContent = investimentoNecessario.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+            cotasNecessariasElem.textContent = `${Math.ceil(cotasNecessarias).toLocaleString('pt-BR', { maximumFractionDigits: 0 })} cotas (arredondado para cima)`;
+        }
+        
         // Função de busca principal
         function searchFII() {
             const searchInput = document.getElementById('searchInput').value.trim().toUpperCase();
