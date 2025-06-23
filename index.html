@@ -197,7 +197,7 @@
         .comparator-table th, .comparator-table td {
             border: 1px solid #748D92;
             padding: 10px;
-            text-align: left;
+            text-align: center;
         }
 
         .comparator-table th {
@@ -207,11 +207,12 @@
         }
 
         .comparator-table td input[type="text"] {
-            width: calc(100% - 10px); /* Ajusta a largura do input na célula */
+            width: 60px; /* Ajusta a largura do input na célula */
             padding: 8px;
             border: 1px solid #748D92;
             border-radius: 4px;
             box-sizing: border-box;
+            text-align: center;
         }
 
         .ads-sidebar { /* Ocupará 20% do espaço disponível dentro do content-wrapper */
@@ -346,8 +347,10 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th><input type="text" placeholder="Ex: VILG11" onblur="fetchComparatorData('fiiA', this.value)"></th>
-                            <th><input type="text" placeholder="Ex: HGRE11" onblur="fetchComparatorData('fiiB', this.value)"></th>
+                            <th><input type="text" placeholder="FII 1" onblur="fetchComparatorData('fiiA', this.value)"></th>
+                            <th><input type="text" placeholder="FII 2" onblur="fetchComparatorData('fiiB', this.value)"></th>
+                            <th><input type="text" placeholder="FII 3" onblur="fetchComparatorData('fiiC', this.value)"></th>
+                            <th><input type="text" placeholder="FII 4" onblur="fetchComparatorData('fiiD', this.value)"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -355,36 +358,50 @@
                             <td>Cotação</td>
                             <td id="fiiA_cotacao"></td>
                             <td id="fiiB_cotacao"></td>
+                            <td id="fiiC_cotacao"></td>
+                            <td id="fiiD_cotacao"></td>
                         </tr>
                         <tr>
                             <td>P/VP</td>
                             <td id="fiiA_pvp"></td>
                             <td id="fiiB_pvp"></td>
+                            <td id="fiiC_pvp"></td>
+                            <td id="fiiD_pvp"></td>
                         </tr>
                         <tr>
                             <td>DY</td>
                             <td id="fiiA_dy"></td>
                             <td id="fiiB_dy"></td>
+                            <td id="fiiC_dy"></td>
+                            <td id="fiiD_dy"></td>
                         </tr>
                         <tr>
                             <td>Patrimônio Líquido</td>
                             <td id="fiiA_patrimonioLiquido"></td>
                             <td id="fiiB_patrimonioLiquido"></td>
+                            <td id="fiiC_patrimonioLiquido"></td>
+                            <td id="fiiD_patrimonioLiquido"></td>
                         </tr>
                         <tr>
                             <td>Número de Cotistas</td>
                             <td id="fiiA_cotistas"></td>
                             <td id="fiiB_cotistas"></td>
+                            <td id="fiiC_cotistas"></td>
+                            <td id="fiiD_cotistas"></td>
                         </tr>
                         <tr>
                             <td>Liquidez Média Diária</td>
                             <td id="fiiA_liquidezMediaDiaria"></td>
                             <td id="fiiB_liquidezMediaDiaria"></td>
+                            <td id="fiiC_liquidezMediaDiaria"></td>
+                            <td id="fiiD_liquidezMediaDiaria"></td>
                         </tr>
                         <tr>
                             <td>Último Rendimento</td>
                             <td id="fiiA_ultimoRendimento"></td>
                             <td id="fiiB_ultimoRendimento"></td>
+                            <td id="fiiC_ultimoRendimento"></td>
+                            <td id="fiiD_ultimoRendimento"></td>
                         </tr>
                     </tbody>
                 </table>
