@@ -120,6 +120,11 @@
             box-shadow: 0 2px 10px rgba(33, 42, 49, 0.08);
         }
         
+        .simulator-title {
+            text-align: center;
+            margin-bottom: 20px; /* Adiciona um espaço abaixo do título */
+        }
+        
         .simulador-section h2,
         .comparator-section h2 {
             text-align: center;
@@ -325,7 +330,7 @@
                 
             </div>
             <div class="simulator-section">
-                <h2>Simulador de Renda Mensal com FIIs</h2>
+                <h2 class="simulator-title">Simulador de FIIs</h2>
                 <div class="simulator-form">
                     <label for="simuladorFiiTicker">Qual FII você deseja simular?</label>
                     <input type="text" id="simuladorFiiTicker" placeholder="Ex: HGLG11" onblur="updateSimulatorFiiData()">
@@ -336,7 +341,6 @@
                     <button onclick="calculateSimulator()">Simular Investimento</button>
 
                     <div class="simulator-results">
-                        <p>FII selecionado: <strong id="simuladorFiiInfo">N/A</strong></p>
                         <p>Rendimento por Cota (Último Mês): <strong id="simuladorRendimentoCota">N/A</strong></p>
                         <p>Cotação Atual: <strong id="simuladorCotacaoAtual">N/A</strong></p>
                         <hr style="border: none; border-top: 1px dashed #eee; margin: 15px 0;">
@@ -464,8 +468,8 @@
                 currentSimulatedFii = fii; // Armazena o FII para uso no cálculo
             } else {
                 fiiInfoElem.textContent = 'FII não encontrado';
-                rendimentoElem.textContent = 'N/A';
-                cotacaoElem.textContent = 'N/A';
+                rendimentoElem.textContent = '';
+                cotacaoElem.textContent = '';
                 erroElem.textContent = 'FII não encontrado na base de dados.';
                 currentSimulatedFii = null;
             }
@@ -477,8 +481,8 @@
             const cotasNecessariasElem = document.getElementById('simuladorCotasNecessarias');
             const erroElem = document.getElementById('simuladorErro');
 
-            investimentoNecessarioElem.textContent = 'N/A';
-            cotasNecessariasElem.textContent = 'N/A';
+            investimentoNecessarioElem.textContent = '';
+            cotasNecessariasElem.textContent = '';
             erroElem.textContent = '';
 
             const rendaDesejada = parseFloat(rendaDesejadaStr.replace(',', '.')); // Garante que é um número com ponto decimal
