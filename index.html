@@ -6,8 +6,6 @@
     <title>Info Fiis - Home</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* CSS específico para a página inicial, se necessário. */
-        /* Pode ser adicionado aqui ou no style.css */
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -452,9 +450,9 @@
             erroElem.textContent = ''; // Limpa mensagens de erro anteriores
 
             if (!ticker) {
-                fiiInfoElem.textContent = '';
-                rendimentoElem.textContent = '';
-                cotacaoElem.textContent = '';
+                fiiInfoElem.textContent = 'N/A';
+                rendimentoElem.textContent = 'N/A';
+                cotacaoElem.textContent = 'N/A';
                 currentSimulatedFii = null;
                 return;
             }
@@ -468,8 +466,8 @@
                 currentSimulatedFii = fii; // Armazena o FII para uso no cálculo
             } else {
                 fiiInfoElem.textContent = 'FII não encontrado';
-                rendimentoElem.textContent = '';
-                cotacaoElem.textContent = '';
+                rendimentoElem.textContent = 'N/A';
+                cotacaoElem.textContent = 'N/A';
                 erroElem.textContent = 'FII não encontrado na base de dados.';
                 currentSimulatedFii = null;
             }
