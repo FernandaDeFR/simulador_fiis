@@ -341,11 +341,11 @@
                     <button onclick="calculateSimulator()">Simular Investimento</button>
 
                     <div class="simulator-results">
-                        <p>Rendimento por Cota (Último Mês): <strong id="simuladorRendimentoCota">N/A</strong></p>
-                        <p>Cotação Atual: <strong id="simuladorCotacaoAtual">N/A</strong></p>
+                        <p>Último rendimento: <strong id="simuladorRendimentoCota"></strong></p>
+                        <p>Cotação atual: <strong id="simuladorCotacaoAtual"></strong></p>
                         <hr style="border: none; border-top: 1px dashed #eee; margin: 15px 0;">
-                        <p>Você precisaria investir aproximadamente: <strong id="simuladorInvestimentoNecessario">N/A</strong></p>
-                        <p>Isso equivale a aproximadamente: <strong id="simuladorCotasNecessarias">N/A</strong></p>
+                        <p>Você precisaria investir aproximadamente: <strong id="simuladorInvestimentoNecessario"></strong></p>
+                        <p>Isso equivale a aproximadamente: <strong id="simuladorCotasNecessarias"></strong></p>
                         <p class="error" id="simuladorErro"></p>
                     </div>
                 </div>
@@ -452,9 +452,9 @@
             erroElem.textContent = ''; // Limpa mensagens de erro anteriores
 
             if (!ticker) {
-                fiiInfoElem.textContent = 'N/A';
-                rendimentoElem.textContent = 'N/A';
-                cotacaoElem.textContent = 'N/A';
+                fiiInfoElem.textContent = '';
+                rendimentoElem.textContent = '';
+                cotacaoElem.textContent = '';
                 currentSimulatedFii = null;
                 return;
             }
@@ -543,9 +543,6 @@
             // Função auxiliar para formatar grandes números (milhões/bilhões)
             function formatarGrandeNumero(num) {
                 if (num === null || num === undefined) return 'N/A';
-                // Assumindo que você **NÃO** vai mais colocar M/B no JSON,
-                // e sim números puros. Se colocar M/B no JSON, remova esta função
-                // e apenas atribua o texto direto: fii.liquidez_media_diaria.
                 if (num >= 1000000000) {
                     return (num / 1000000000).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + 'B';
                 } else if (num >= 1000000) {
