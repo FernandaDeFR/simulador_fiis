@@ -186,9 +186,12 @@ body {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
+            table-layout: fixed;
         }
 
-        .comparator-table th, .comparator-table td {
+        .comparator-table th:first-child,
+        .comparator-table td:first-child {
+            width: 100px;
             border: 1px solid #748D92;
             padding: 2px;
             text-align: center;
@@ -197,10 +200,18 @@ body {
             word-wrap: break-word;
         }
 
-        .comparator-table th {
+        .comparator-table th:not(:first-child), 
+        .comparator-table td:not(:first-child) {
             background-color: #D3D9D4;
             color: #212A31;
             font-weight: bold;
+            text-align: center;
+            width: calc((100% - 100px) / 4);
+        }
+        .comparator-table th input[type="text"] {
+            width: 100%; /* Faz o input ocupar 100% da largura da célula do cabeçalho */
+            box-sizing: border-box; /* Garante que padding e borda não adicionem largura */
+            min-width: 0; /* Permite que encolha se necessário */
         }
 
         .comparator-table td input[type="text"] {
