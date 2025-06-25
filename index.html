@@ -157,7 +157,6 @@
         function updateSimulatorFiiData() {
             const tickerInput = document.getElementById('simuladorFiiTicker');
             const ticker = tickerInput.value.trim().toUpperCase();
-            const fiiInfoElem = document.getElementById('simuladorFiiInfo');
             const rendimentoElem = document.getElementById('simuladorRendimentoCota');
             const cotacaoElem = document.getElementById('simuladorCotacaoAtual');
             const erroElem = document.getElementById('simuladorErro');
@@ -165,9 +164,8 @@
             erroElem.textContent = ''; // Limpa mensagens de erro anteriores
 
             if (!ticker) {
-                fiiInfoElem.textContent = 'N/A';
-                rendimentoElem.textContent = 'N/A';
-                cotacaoElem.textContent = 'N/A';
+                rendimentoElem.textContent = '';
+                cotacaoElem.textContent = '';
                 currentSimulatedFii = null;
                 return;
             }
@@ -175,14 +173,12 @@
             const fii = fiisDataHome[ticker];
 
             if (fii) {
-                fiiInfoElem.textContent = `${fii.ticker} (${fii.nome})`;
                 rendimentoElem.textContent = (fii.ultimo_rendimento || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
                 cotacaoElem.textContent = (fii.valor_cota || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-                currentSimulatedFii = fii; // Armazena o FII para uso no cálculo
+                currentSimulatedFii = fii; 
             } else {
-                fiiInfoElem.textContent = 'FII não encontrado';
-                rendimentoElem.textContent = 'N/A';
-                cotacaoElem.textContent = 'N/A';
+                rendimentoElem.textContent = '';
+                cotacaoElem.textContent = '';
                 erroElem.textContent = 'FII não encontrado na base de dados.';
                 currentSimulatedFii = null;
             }
@@ -277,13 +273,13 @@
                 document.getElementById(`${fiiIdPrefix}_ultimoRendimento`).textContent = (fii.ultimo_rendimento || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             } else {
                 // Limpa os campos se o FII não for encontrado
-                document.getElementById(`${fiiIdPrefix}_cotacao`).textContent = 'N/A'; 
-                document.getElementById(`${fiiIdPrefix}_pvp`).textContent = 'N/A';
-                document.getElementById(`${fiiIdPrefix}_dy`).textContent = 'N/A';
-                document.getElementById(`${fiiIdPrefix}_patrimonioLiquido`).textContent = 'N/A';
-                document.getElementById(`${fiiIdPrefix}_cotistas`).textContent = 'N/A';
-                document.getElementById(`${fiiIdPrefix}_liquidezMediaDiaria`).textContent = 'N/A';
-                document.getElementById(`${fiiIdPrefix}_ultimoRendimento`).textContent = 'N/A';
+                document.getElementById(`${fiiIdPrefix}_cotacao`).textContent = ''; 
+                document.getElementById(`${fiiIdPrefix}_pvp`).textContent = '';
+                document.getElementById(`${fiiIdPrefix}_dy`).textContent = '';
+                document.getElementById(`${fiiIdPrefix}_patrimonioLiquido`).textContent = '';
+                document.getElementById(`${fiiIdPrefix}_cotistas`).textContent = '';
+                document.getElementById(`${fiiIdPrefix}_liquidezMediaDiaria`).textContent = '';
+                document.getElementById(`${fiiIdPrefix}_ultimoRendimento`).textContent = '';
             }
         }
 
