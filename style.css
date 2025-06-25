@@ -200,20 +200,36 @@ body {
             word-wrap: break-word;
         }
 
-        .comparator-table th:not(:first-child), 
-        .comparator-table td:not(:first-child) {
+        .comparator-table th:not(:first-child) {
             background-color: #D3D9D4;
             color: #212A31;
             font-weight: bold;
             text-align: center;
+            border: 1px solid #748D92; /* Adiciona borda aqui para consistência */
+            padding: 2px;
             width: calc((100% - 100px) / 4);
         }
+
+        .comparator-table td:not(:first-child) {
+            text-align: center;
+            background-color: white; /* <-- AQUI: Fundo branco para as células de dados */
+            color: #212A31; /* Cor do texto dos dados (se não especificado, herdaria) */
+            font-weight: normal; /* Geralmente dados não ficam em negrito, mas ajuste se quiser */
+            width: calc((100% - 100px) / 4);
+            border: 1px solid #748D92; /* Adiciona borda aqui para consistência */
+            padding: 2px; /* Adiciona padding aqui */
+        }
+
         .comparator-table th input[type="text"] {
             width: 100%; /* Faz o input ocupar 100% da largura da célula do cabeçalho */
             box-sizing: border-box; /* Garante que padding e borda não adicionem largura */
             min-width: 0; /* Permite que encolha se necessário */
+            padding: 2px; /* Adicione padding para o input também */
+            border: 1px solid #748D92;
+            border-radius: 4px;
+            text-align: center;
         }
-
+            /*
         .comparator-table td input[type="text"] {
             width: 50px;
             min-width: 0;
@@ -224,7 +240,7 @@ body {
             box-sizing: border-box;
             text-align: center;
         }
-
+            */
         .ads-sidebar { /* Ocupará 20% do espaço disponível dentro do content-wrapper */
             background-color: #D3D9D4; 
             padding: 15px;
