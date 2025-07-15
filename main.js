@@ -109,7 +109,7 @@ let fiisDataHome = {}; // Variável para armazenar os dados dos FIIs para a home
 
         // Com reinvestir (simplesmente assumimos que o rendimento ajuda com 100% reinvestimento)
             const rendimentoMensalPorCota = ultimoRendimento;
-            const rendimentoTotalPorMes = cotasAtuais * rendimentoMensalPorCota;
+            let rendimentoTotalPorMes = cotasAtuais * rendimentoMensalPorCota;
             let saldo = 0;
             let cotasSimuladas = cotasAtuais;
             let mesesComReinvestir = 0;
