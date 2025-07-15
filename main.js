@@ -9,7 +9,13 @@ let fiisDataHome = {}; // Variável para armazenar os dados dos FIIs para a home
                 console.error('Erro ao carregar os dados dos FIIs para o comparador:', error);
             }
         }
-        
+        // Função para escolher entre numero de cotas ou valor total
+        function toggleInvestimentoInputs() {
+            const tipo = document.getElementById('tipoInvestimento').value;
+            document.getElementById('inputValorMensal').style.display = tipo === 'valor' ? 'block' : 'none';
+            document.getElementById('inputNumeroCotas').style.display = tipo === 'cotas' ? 'block' : 'none';
+        }
+
         // --- Funções para o Simulador ---
         let currentSimulatedFii = null; // Armazena o FII selecionado no simulador
 
@@ -83,6 +89,47 @@ let fiisDataHome = {}; // Variável para armazenar os dados dos FIIs para a home
 
             investimentoNecessarioElem.textContent = investimentoNecessario.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             cotasNecessariasElem.textContent = `${Math.ceil(cotasNecessarias).toLocaleString('pt-BR', { maximumFractionDigits: 0 })} cotas (arredondado para cima)`;
+
+            let investimentoMensal = 0;
+            const tipo = document.getElementById('tipoInvestimento').value;
+
+            if (tipo === 'valor') {
+                investimentoMensal = parseFloat(document.getElementById('simuladorInvestimentoMensal').value.replace(',', '.')) || 0;
+            } else {
+                const cotasMensais = parseFloat(document.getElementById('simuladorCotasMensais').value) || 0;
+                investimentoMensal = cotasMensais * currentSimulatedFii.valor_cota;
+            }
+
+            const cotasAtuais = parseFloat(document.getElementById('simuladorCotasAtuais').value) || 0;
+
+            const cotasFaltando = cotasNecessarias - cotasAtuais;
+
+        // Sem reinvestir
+            const mesesSemReinvestir = investimentoMensal > 0 ? cotasFaltando / (investimentoMensal / valorCota) : null;
+
+        // Com reinvestir (simplesmente assumimos que o rendimento ajuda com 100% reinvestimento)
+            const rendimentoMensalPorCota = ultimoRendimento;
+            const rendimentoTotalPorMes = cotasAtuais * rendimentoMensalPorCota;
+            let saldo = 0;
+            let cotasSimuladas = cotasAtuais;
+            let mesesComReinvestir = 0;
+            while (cotasSimuladas < cotasNecessarias && mesesComReinvestir < 600) {
+                saldo += investimentoMensal + rendimentoTotalPorMes;
+                const novasCotas = Math.floor(saldo / valorCota);
+                saldo -= novasCotas * valorCota;
+                cotasSimuladas += novasCotas;
+                rendimentoTotalPorMes = cotasSimuladas * rendimentoMensalPorCota;
+                mesesComReinvestir++;
+            }
+
+        // Preenche no HTML
+            document.getElementById('tempoSemReinvestir').textContent =
+                mesesSemReinvestir ? `${Math.ceil(mesesSemReinvestir)} meses` : 'N/A';
+
+            document.getElementById('tempoComReinvestir').textContent =
+                `${mesesComReinvestir} meses`;
+
+        
         }
         
         // Função de busca principal
