@@ -119,8 +119,6 @@ let fiisDataHome = {}; // Variável para armazenar os dados dos FIIs para a home
                 saldo -= novasCotas * valorCota;
                 cotasSimuladas += novasCotas;
                 mesesComReinvestir++;
-}
-
             }
 
         // Preenche no HTML
