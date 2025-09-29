@@ -54,4 +54,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Fernanda de Faria Rodrigues**
 * **GitHub:** [@FernandaDeFR](https://github.com/FernandaDeFR)
-* **LinkedIn:** [Your LinkedIn Profile Link]
+* **LinkedIn:** [fernanda-rodrigues-40916427b]
