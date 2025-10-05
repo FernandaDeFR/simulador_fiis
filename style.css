@@ -11,11 +11,10 @@ body {
             box-sizing: border-box; /* Garante que padding não aumente o tamanho total */
         }
 
-        /* Novo wrapper para o conteúdo principal e a sidebar */
         .content-wrapper {
             display: flex;
             width: 100%; /* Ocupa a largura total disponível pelo body */
-            max-width: 10000px; /* Aumentei de 1200 para 10000 */
+            max-width: 10000px; 
             gap: 20px; /* Espaçamento entre as colunas (conteúdo e anúncios) */
             align-items: flex-start; /* Alinha os itens ao topo */
         }
@@ -111,7 +110,7 @@ body {
         
         .simulator-title {
             text-align: center;
-            margin-bottom: 20px; /* Adiciona um espaço abaixo do título */
+            margin-bottom: 20px; 
         }
         
         .simulador-section h2,
@@ -212,19 +211,19 @@ body {
 
         .comparator-table td:not(:first-child) {
             text-align: center;
-            background-color: white; /* <-- AQUI: Fundo branco para as células de dados */
-            color: #212A31; /* Cor do texto dos dados (se não especificado, herdaria) */
-            font-weight: normal; /* Geralmente dados não ficam em negrito, mas ajuste se quiser */
+            background-color: white;
+            color: #212A31; 
+            font-weight: normal; 
             width: calc((100% - 100px) / 4);
-            border: 1px solid #748D92; /* Adiciona borda aqui para consistência */
-            padding: 2px; /* Adiciona padding aqui */
+            border: 1px solid #748D92; 
+            padding: 2px; 
         }
 
         .comparator-table th input[type="text"] {
-            width: 100%; /* Faz o input ocupar 100% da largura da célula do cabeçalho */
+            width: 100%; 
             box-sizing: border-box; /* Garante que padding e borda não adicionem largura */
             min-width: 0; /* Permite que encolha se necessário */
-            padding: 2px; /* Adicione padding para o input também */
+            padding: 2px; 
             border: 1px solid #748D92;
             border-radius: 4px;
             text-align: center;
@@ -253,7 +252,7 @@ body {
             color: #212A31;
             font-size: 0.9em;
             box-shadow: 0 2px 8px rgba(33, 42, 49, 0.1);
-            min-width: 150px; /* Garante uma largura mínima para a sidebar, para não ficar muito estreita */
+            min-width: 150px; 
             box-sizing: border-box;
         }
 
@@ -269,7 +268,7 @@ body {
         }
 
         /* Layout responsivo para telas menores */
-        @media (max-width: 992px) { /* Ajuste o breakpoint para quando a sidebar deve ir para baixo */
+        @media (max-width: 992px) { 
             .content-wrapper {
                 flex-direction: column; /* Coloca tudo em uma coluna */
                 align-items: center; /* Centraliza os itens na coluna */
