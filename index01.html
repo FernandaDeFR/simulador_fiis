@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Info Fiis - Home</title>
     <link rel="stylesheet" href="style.css"> <style>
-        /* CSS específico para a página inicial, se necessário. */
-        /* Pode ser adicionado aqui ou no style.css */
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -21,12 +19,12 @@
             min-height: 100vh;
         }
 
-        .main-container { /* Um contêiner maior para a home */
+        .main-container { 
             background-color: #FFFFFF;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            max-width: 900px; /* Mais largo para acomodar o layout */
+            max-width: 900px; 
             width: 100%;
             box-sizing: border-box;
         }
@@ -91,7 +89,7 @@
         .benefit-item img { /* Estilo para a imagem da estrela */
             width: 30px;
             height: 30px;
-            margin-top: 2px; /* Pequeno ajuste para alinhar com o texto */
+            margin-top: 2px; 
         }
 
         .benefit-item p {
@@ -322,9 +320,6 @@
             // Função auxiliar para formatar grandes números (milhões/bilhões)
             function formatarGrandeNumero(num) {
                 if (num === null || num === undefined) return 'N/A';
-                // Assumindo que você **NÃO** vai mais colocar M/B no JSON,
-                // e sim números puros. Se colocar M/B no JSON, remova esta função
-                // e apenas atribua o texto direto: fii.liquidez_media_diaria.
                 if (num >= 1000000000) {
                     return (num / 1000000000).toLocaleString('pt-BR', { maximumFractionDigits: 2 }) + 'B';
                 } else if (num >= 1000000) {
@@ -346,7 +341,7 @@
                 document.getElementById(`${fiiIdPrefix}_ultimoRendimento`).textContent = (fii.ultimo_rendimento || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             } else {
                 // Limpa os campos se o FII não for encontrado
-                document.getElementById(`${fiiIdPrefix}_cotacao`).value = ticker; // Mantém o texto digitado
+                document.getElementById(`${fiiIdPrefix}_cotacao`).value = ticker; 
                 document.getElementById(`${fiiIdPrefix}_pvp`).textContent = 'N/A';
                 document.getElementById(`${fiiIdPrefix}_dy`).textContent = 'N/A';
                 document.getElementById(`${fiiIdPrefix}_patrimonioLiquido`).textContent = 'N/A';
