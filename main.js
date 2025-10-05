@@ -1,6 +1,6 @@
 let fiisDataHome = {}; // Variável para armazenar os dados dos FIIs para a home e comparador
 
-        // Função para carregar os dados do JSON (necessário para o comparador)
+        // Função para carregar os dados do JSON 
         async function loadFiisData() {
             try {
                 const response = await fetch('./fiis_data.json');
@@ -26,7 +26,7 @@ let fiisDataHome = {}; // Variável para armazenar os dados dos FIIs para a home
             const cotacaoElem = document.getElementById('simuladorCotacaoAtual');
             const erroElem = document.getElementById('simuladorErro');
 
-            erroElem.textContent = ''; // Limpa mensagens de erro anteriores
+            erroElem.textContent = ''; 
 
             if (!ticker) {
                 rendimentoElem.textContent = '';
