@@ -31,8 +31,7 @@ Since this is a front-end web application, setup is straightforward.
     ```
 3.  **Open the application:**
     Simply open the `index.html` file in your preferred web browser.
-
-*(If your project relies on a live data API, you may need to specify how to configure API keys here, otherwise, this simple setup is sufficient.)*
+    
 
 ## 💡 How to Use the Simulator
 
